@@ -11,35 +11,4 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-	public function getNews(?int $id = null): array
-	{
-		$faker = Factory::create();
-		$statusList = ["DRAFT", "ACTIVE", "BLOCKED"];
-		if($id) {
-			return [
-				'id'     => $id,
-				'title'  => $faker->jobTitle(),
-				'author' => $faker->userName(),
-				'image'  => $faker->imageUrl(250, 170),
-				'status' => $statusList[mt_rand(0,2)],
-				'description' => "<strong>" . $faker->text(100) . "</strong>"
-			];
-		}
-
-		$data = [];
-		for($i=0; $i < 10; $i++) {
-			$id = $i +1;
-			$data[] = [
-				'id'     => $id,
-				'title'  => $faker->jobTitle(),
-				'author' => $faker->userName(),
-				'image'  => $faker->imageUrl(250, 170),
-				'status' => $statusList[mt_rand(0,2)],
-				'description' => "<strong>" . $faker->text(100) . "</strong>"
-			];
-		}
-
-		return $data;
-	}
 }
