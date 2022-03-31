@@ -37,3 +37,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
      Route::resource('categories', AdminCategoryController::class);
      Route::resource('news', AdminNewsController::class);
 });
+
+
+Route::get('example', function() {
+	$array = ['names' => ["Mike", "Pike"], "name" => ["Ann", "Kate", "Jhon", "Chris", "Ivan", "Julie"]];
+	$collection = collect($array);
+
+	dd($collection->collapse());
+
+});
