@@ -25,11 +25,13 @@
             </div>
             <div class="form-group">
                 <label for="title">Наименование</label>
-                <input type="text" class="form-control" name="title" id="title" value="{{ $news->title }}">
+                <input type="text" class="form-control @if($errors->has('title')) alert-danger @endif" name="title" id="title" value="{{ $news->title }}">
+                @error('title') <strong style="color:red;">{{ $message }}</strong> @enderror
             </div>
             <div class="form-group">
                 <label for="author">Автор</label>
-                <input type="text" class="form-control" name="author" id="author" value="{{ $news->author }}">
+                <input type="text" class="form-control @if($errors->has('author')) alert-danger @endif" name="author" id="author" value="{{ $news->author }}">
+                @error('author') <strong style="color:red;">{{ $message }}</strong> @enderror
             </div>
             <div class="form-group">
                 <label for="image">Изображение</label>
