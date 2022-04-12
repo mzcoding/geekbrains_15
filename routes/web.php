@@ -27,8 +27,8 @@ Route::get('/', function () {
 
 Route::get('/news', [NewsController::class, 'index'])
 	->name('news');
-Route::get('/news/{id}', [NewsController::class, 'show'])
-	->where('id', '\d+')
+Route::get('/news/{news}', [NewsController::class, 'show'])
+	->where('news', '\d+')
 	->name('news.show');
 
 Route::group(['middleware' => 'auth'], function() {

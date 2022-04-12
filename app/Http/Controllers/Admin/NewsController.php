@@ -9,6 +9,7 @@ use App\Http\Requests\News\CreateRequest;
 use App\Http\Requests\News\EditRequest;
 use App\Models\Category;
 use App\Models\News;
+use App\Services\UploadService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -23,7 +24,7 @@ class NewsController extends Controller
     public function index()
     {
 		return view('admin.news.index', [
-			'newsList' => News::with('category')->paginate(5)
+			'newsList' => News::with(['category'])->paginate(5),
 		]);
     }
 
@@ -90,7 +91,12 @@ class NewsController extends Controller
 	 */
     public function update(EditRequest $request, News $news)
     {
-		$status = $news->fill($request->validated())->save();
+		$validated = $request->validated();
+		if($request->hasFile('image')) {
+			$service = app(UploadService::class);
+			$validated['image'] = $service->uploadFile($request->file('image'));
+		}
+		$status = $news->fill($validated)->save();
 
 		if ($status) {
 			return redirect()->route('admin.news.index')

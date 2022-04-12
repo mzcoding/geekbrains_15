@@ -4,23 +4,22 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
     public function index()
 	{
-		$news = $this->getNews();
-
 		return view('news.index', [
-			'newsList' => $news
+			'newsList' => News::paginate(10)
 		]);
 	}
 
-	public function show(int $id)
+	public function show(News $news)
 	{
 		return view('news.show', [
-			'news' => $this->getNews($id)
+			'news' => $news
 		]);
 	}
 }

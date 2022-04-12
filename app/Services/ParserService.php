@@ -23,12 +23,12 @@ class ParserService implements Contract
 	}
 
 	/**
-	 * @return array
+	 * @return void
 	 */
-	public function getNews(): array
+	public function saveNews(): void
 	{
 		$xml = Parser::load($this->url);
-		return $xml->parse([
+		$data =  $xml->parse([
 			'title' => [
 				'uses' => 'channel.title'
 			],
@@ -45,5 +45,9 @@ class ParserService implements Contract
 				'uses' => 'channel.item[title,link,guid,description,pubDate]'
 			]
 		]);
+        $json = json_encode($data);
+		$e = explode("/", $this->url);
+		$fileName = end($e);
+		\Storage::append('news/' . $fileName, $json);
 	}
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\News;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class EditRequest extends FormRequest
 {
@@ -47,5 +48,11 @@ class EditRequest extends FormRequest
 		return [
 			'title' => 'заголовок'
 		];
+	}
+	public function someValidate(Validator $validator)
+	{
+		$validator->sometimes('reason', 'required|max:500', function ($input) {
+			return $input->games >= 100;
+		});
 	}
 }
