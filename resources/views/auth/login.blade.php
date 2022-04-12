@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Вход') }}</div>
+                <a href="{{ route('auth.redirect', ['network' => 'vkontakte']) }}">Вход через VK</a>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
